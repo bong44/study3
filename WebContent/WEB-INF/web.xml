@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>study2</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+      <servlet-name>driver</servlet-name>
+      <servlet-class>com.study.servlet.DriverLoader</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- 컨트롤러와 연결 -->
+	<servlet>
+      <servlet-name>test</servlet-name>
+      <servlet-class>com.study.servlet.SimpleController</servlet-class>
+    </servlet>
+    <!-- 매핑?? -->
+    <servlet-mapping>
+		<servlet-name>test</servlet-name>
+		<!-- 완전 매핑 (엄격?) -->
+		<!-- <url-pattern>/command.soju</url-pattern>  -->
+		<!-- milkist가 붙은 모든 도메인 (모든 데이터 요청을 컨트롤러에서 처리하기 위해서 확장자로서 매핑하여 연결) (확장자매핑) -->
+		<url-pattern>*.wow</url-pattern>
+    </servlet-mapping>
+    <!-- 컨트롤러와 연결 -->
+    
+     <!-- url-pattern : 4가지
+    	  확장자 매핑 : *.soju, * 시작하고 확장자(회사도메인, *.nhn)
+    	  경로 매핑 : /board/*, "/"로 시작하고, "*"로 끝나는 패턴
+    	  서블릿 매핑 : /, 이미 등록된 매핑을 제외하고 모든 요청을 처리
+    	  			    (jsp를 제외한 모든 요청, jsp 매핑은 WAS에 이미 등록 되어있습니다.)
+    	  완전 매핑 : /admin/hello.do, "/"로 시작하고 완전한 하나의 url을 가지는 매핑
+    	  위 조건에 안맞으면 오류
+     -->
+    <error-page>
+    	<error-code>404</error-code>
+    	<location>/WEB-INF/err/error404.jsp</location>
+    </error-page>
+</web-app>
