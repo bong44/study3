@@ -16,6 +16,13 @@ import com.study.free.service.FreeBoardServiceImpl;
 import com.study.free.service.IFreeBoardService;
 import com.study.free.vo.FreeBoardSearchVO;
 import com.study.free.vo.FreeBoardVO;
+import com.study.free.web.FreeDeleteController;
+import com.study.free.web.FreeEditController;
+import com.study.free.web.FreeFormController;
+import com.study.free.web.FreeListController;
+import com.study.free.web.FreeModifyController;
+import com.study.free.web.FreeRegistController;
+import com.study.free.web.FreeViewController;
 
 public class SimpleController extends HttpServlet{
 	
@@ -25,8 +32,8 @@ public class SimpleController extends HttpServlet{
 	//	System.out.println(t.substring(7));
 	//}
 	
-	IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
-	ICommonCodeService codeService = new CommonCodeServiceImpl();
+	//IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
+	//ICommonCodeService codeService = new CommonCodeServiceImpl();
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,40 +52,43 @@ public class SimpleController extends HttpServlet{
 		//위 로직 실제 활용
 		uri = uri.substring(req.getContextPath().length());  // == /free/freeList.wow
 		System.out.println("uri= " + uri);
+		IController controller = null;
 		
 		// 3. 모델를 사용하여 처리
 		// 4. 결과를 속성에 저장
 		if ("/free/freeList.wow".equals(uri)) {
-			FreeBoardSearchVO searchVO = new FreeBoardSearchVO();
-			List<FreeBoardVO> free = freeBoardService.getBoardList(searchVO);
-			req.setAttribute("free", free);
-
-			List<CodeVO> prList = codeService.getCodeListByParent("BC00");
-			req.setAttribute("prList", prList);
-			viewPage = "/free/freeList.jsp";
-			
+			controller = new FreeListController();
 		}else if ("/free/freeView.wow".equals(uri)) {
-			FreeBoardVO free;
-			try {
-				free = freeBoardService.getBoard(Integer.parseInt(req.getParameter("boNo")));
-				req.setAttribute("free", free);
-				if (free != null) {
-					freeBoardService.increaseHit(Integer.parseInt(req.getParameter("boNo")));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			viewPage = "/free/freeView.jsp";
+			controller = new FreeViewController();
 		}else if ("/free/freeForm.wow".equals(uri)) {
-		 	List<CodeVO> bList = codeService.getCodeListByParent("BC00");
-		 	req.setAttribute("bList", bList);
-		 	
-		 	viewPage = "/free/freeForm.jsp";
+			controller = new FreeFormController();
+		}else if ("/free/freeRegist.wow".equals(uri)) {
+			controller = new FreeRegistController();
+		}else if ("/free/freeModify.wow".equals(uri)) {
+			controller = new FreeModifyController();
+		}else if ("/free/freeEdit.wow".equals(uri)) {
+			controller = new FreeEditController();
+		}else if ("/free/freeDelete.wow".equals(uri)) {
+			controller = new FreeDeleteController();
 		}
-		System.out.println("viewPage= "+viewPage);
-		// 5. 뷰페이지 이동
-		RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
-		dispatcher.forward(req, resp);
+		if (controller != null) {
+			
+			try {
+				viewPage = controller.process(req, resp);
+				System.out.println("viewPage= "+viewPage);
+				
+				// 5. 뷰페이지 이동
+				RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
+				dispatcher.forward(req, resp);
+			} catch (Exception e) {
+				e.printStackTrace(); //500
+				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
+			
+		}else {
+			// 요청에 대한 커트롤러가 없으므로 404 던지게
+			resp.sendError(404,uri+" <-- 해당 URI는 존재하지 않습니다.");
+		}
 		
 	}
 

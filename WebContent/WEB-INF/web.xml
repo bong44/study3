@@ -15,12 +15,18 @@
     </servlet>
     <!-- 컨트롤러와 연결 -->
 	<servlet>
-      <servlet-name>test</servlet-name>
-      <servlet-class>com.study.servlet.SimpleController</servlet-class>
-    </servlet>
+		<servlet-name>frontController</servlet-name>
+		<servlet-class>com.study.servlet.StudyDispatcherController</servlet-class>
+		<!-- init메소드에 경로파일을 파라미터로 전달 중요! -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/classes/config/study_uri.properties</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
     <!-- 매핑?? -->
     <servlet-mapping>
-		<servlet-name>test</servlet-name>
+		<servlet-name>frontController</servlet-name>
 		<!-- 완전 매핑 (엄격?) -->
 		<!-- <url-pattern>/command.soju</url-pattern>  -->
 		<!-- milkist가 붙은 모든 도메인 (모든 데이터 요청을 컨트롤러에서 처리하기 위해서 확장자로서 매핑하여 연결) (확장자매핑) -->
