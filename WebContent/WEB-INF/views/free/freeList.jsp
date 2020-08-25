@@ -56,7 +56,7 @@
 								<option value="">-- 전체 --</option>
 								<c:forEach items="${prList}" var="code">
 									<option value="${code.commCd}"
-										${code.commNm eq searchVO.searchCategory ? "selected='selected'" : ""}>${code.commNm}
+										${code.commCd eq searchVO.searchCategory ? "selected='selected'" : ""}>${code.commNm}
 									</option>
 								</c:forEach>
 							</select>

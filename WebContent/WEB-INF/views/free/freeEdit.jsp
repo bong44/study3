@@ -1,8 +1,3 @@
-<%@page import="com.study.exception.BizNotFoundException"%>
-<%@page import="com.study.code.service.CommonCodeServiceImpl"%>
-<%@page import="com.study.code.service.ICommonCodeService"%>
-<%@page import="com.study.code.vo.CodeVO"%>
-<%@page import="com.study.free.vo.FreeBoardVO"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>

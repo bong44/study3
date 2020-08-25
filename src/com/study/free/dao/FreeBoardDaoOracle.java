@@ -229,7 +229,7 @@ public class FreeBoardDaoOracle implements IFreeBoardDao{
 			sb.append("     , ?     						  	  ");
 			sb.append("     , sysdate     					  ");
 			sb.append("     , ?     						  	  ");
-			sb.append("     , ?     						  	  ");
+			sb.append("     , 'N'     						  	  ");
 			sb.append(" )     						     	     ");
 			System.out.println(sb.toString().replaceAll("\\s{2,}", "")); // \s = 공백이 2, = 2개이상인
 			pstmt = conn.prepareStatement(sb.toString());
@@ -241,7 +241,6 @@ public class FreeBoardDaoOracle implements IFreeBoardDao{
 			pstmt.setString(6, board.getBoIp());
 			pstmt.setInt(7, board.getBoHit());
 			pstmt.setString(8, board.getBoModDate());
-			pstmt.setString(9, board.getBoDelYn());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage(), e);

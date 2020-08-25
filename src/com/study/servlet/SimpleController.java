@@ -1,7 +1,6 @@
 package com.study.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,13 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.study.code.service.CommonCodeServiceImpl;
-import com.study.code.service.ICommonCodeService;
-import com.study.code.vo.CodeVO;
-import com.study.free.service.FreeBoardServiceImpl;
-import com.study.free.service.IFreeBoardService;
-import com.study.free.vo.FreeBoardSearchVO;
-import com.study.free.vo.FreeBoardVO;
 import com.study.free.web.FreeDeleteController;
 import com.study.free.web.FreeEditController;
 import com.study.free.web.FreeFormController;
@@ -24,6 +16,7 @@ import com.study.free.web.FreeModifyController;
 import com.study.free.web.FreeRegistController;
 import com.study.free.web.FreeViewController;
 
+@SuppressWarnings("serial")
 public class SimpleController extends HttpServlet{
 	
 	//public static void main(String[] args) {

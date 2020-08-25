@@ -24,9 +24,13 @@ public class FreeListController implements IController{
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		
+		
 		FreeBoardSearchVO searchVO = new FreeBoardSearchVO();
+		BeanUtils.populate(searchVO, req.getParameterMap());
+		
 		List<FreeBoardVO> free = freeBoardService.getBoardList(searchVO);
 		req.setAttribute("free", free);
+		req.setAttribute("searchVO", searchVO);
 
 		List<CodeVO> prList = codeService.getCodeListByParent("BC00");
 		req.setAttribute("prList", prList);

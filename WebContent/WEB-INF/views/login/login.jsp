@@ -27,7 +27,7 @@
 %>
 <%@include file="/WEB-INF/inc/top.jsp" %>
 	<div class="container">
-		<form action="loginCheck.jsp" class="loginForm">
+		<form action="login.wow" method="post" class="loginForm">
 			<h2>로그인</h2>
 			<%
 				if(msg != null && !msg.isEmpty()){
