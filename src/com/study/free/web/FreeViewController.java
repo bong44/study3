@@ -18,7 +18,9 @@ public class FreeViewController implements IController{
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		
 		ResultMessageVO messageVO = new ResultMessageVO();
+		
 		try {
 			FreeBoardVO free = freeBoardService.getBoard(Integer.parseInt(req.getParameter("boNo")));
 			req.setAttribute("free", free);

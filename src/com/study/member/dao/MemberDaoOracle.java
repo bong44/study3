@@ -13,7 +13,6 @@ import com.study.exception.DaoDuplicateKeyException;
 import com.study.exception.DaoException;
 import com.study.member.vo.MemberSearchVO;
 import com.study.member.vo.MemberVO;
-import com.sun.jndi.cosnaming.CNCtx;
 
 public class MemberDaoOracle implements IMemberDao{
 	
@@ -27,6 +26,7 @@ public class MemberDaoOracle implements IMemberDao{
 			sb.append(" SELECT count(*)				  ");
 			sb.append(" FROM member        	  ");
 			sb.append(" WHERE 1 = 1 		  ");
+			sb.append(" AND mem_delete = 'N' 		  ");
 			//검색처리
 			if (StringUtils.isNotEmpty(searchVO.getSearchJob())) {
 				sb.append(" AND mem_job = ?        	  		  ");
@@ -146,7 +146,6 @@ public class MemberDaoOracle implements IMemberDao{
 			sb.append("	           , mem_mail    =   ?  ");
 			sb.append("	           , mem_job     =   ?  ");
 			sb.append("	           , mem_like    =   ?  ");
-			sb.append("	           , mem_delete    =   ?  ");
 			sb.append("	       WHERE mem_id      =   ?  ");
 			System.out.println(sb.toString().replaceAll("\\s{2,}", " ")); // \s = 공백이 2, = 2개이상인
 			pstmt = conn.prepareStatement(sb.toString());
@@ -160,7 +159,6 @@ public class MemberDaoOracle implements IMemberDao{
 			pstmt.setString(i++, member.getMemMail());
 			pstmt.setString(i++, member.getMemJob());
 			pstmt.setString(i++, member.getMemLike());
-			pstmt.setString(i++, member.getMemDelete());
 			pstmt.setString(i++, member.getMemId());
 			int cnt = pstmt.executeUpdate();
 			return cnt;
@@ -271,8 +269,8 @@ public class MemberDaoOracle implements IMemberDao{
 		    sb.append(" , mem_mileage      																	  ");
 		    sb.append(" , mem_delete                          				  					         ");
 			sb.append("  FROM member, comm_code b, comm_code c             						         ");
-			sb.append("  WHERE mem_job = b.comm_cd                       						         ");
-			sb.append("  AND mem_job = c.comm_cd                        						        	  ");
+			sb.append("  WHERE mem_job = b.comm_cd(+)                       						         ");
+			sb.append("  AND mem_job = c.comm_cd(+)                        						        	  ");
 			sb.append("  AND mem_delete = 'N'     																");
 			//검색처리
 			if (StringUtils.isNotEmpty(searchVO.getSearchJob())) {
@@ -290,7 +288,7 @@ public class MemberDaoOracle implements IMemberDao{
 				case "ADD2": sb.append(" AND mem_add2 LIKE '%' || ? || '%'  "); break;
 				}
 			}
-			sb.append("  order by mem_id 			                  ");
+			sb.append("    				ORDER BY mem_id                             "); 
 		    sb.append("    				) a                             "); 
 		    sb.append("    			where rownum <= ?) b                "); 
 		    sb.append("			where rnum between ? and ?              "); 

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.study.exception.BizDuplicateKeyException;
-import com.study.exception.BizException;
 import com.study.exception.BizNotEffectedException;
 import com.study.exception.BizNotFoundException;
 import com.study.exception.DaoDuplicateKeyException;
@@ -15,9 +14,6 @@ import com.study.member.dao.IMemberDao;
 import com.study.member.dao.MemberDaoOracle;
 import com.study.member.vo.MemberSearchVO;
 import com.study.member.vo.MemberVO;
-import com.sun.webkit.ThemeClient;
-
-import sun.print.resources.serviceui;
 
 public class MemberServiceImpl implements IMemberService {
 	

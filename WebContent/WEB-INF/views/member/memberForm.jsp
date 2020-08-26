@@ -1,10 +1,6 @@
-<%@page import="com.study.code.vo.CodeVO"%>
-<%@page import="com.study.code.service.CommonCodeServiceImpl"%>
-<%@page import="com.study.code.service.ICommonCodeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <% request.setCharacterEncoding("utf-8"); %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,15 +10,8 @@
 <body>
 <%@ include file="/WEB-INF/inc/top.jsp" %>
  <div class="container">	
- <%
- 	ICommonCodeService codeService = new CommonCodeServiceImpl();
- 	List<CodeVO> jobList = codeService.getCodeListByParent("JB00");
- 	List<CodeVO> hobList = codeService.getCodeListByParent("HB00");
- 	request.setAttribute("jobList", jobList);
- 	request.setAttribute("hobList", hobList);
- %>
 	<h3>회원가입</h3>		
-	<form action="memberRegist.jsp" method="get" >
+	<form action="memberRegist.wow" method="get" >
 	<table class="table table-striped">
 		<tbody>
 			<tr>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.study.login.service.ILoginService;
 import com.study.login.service.LoginServiceImpl;
+import com.study.login.vo.UserVO;
 import com.study.servlet.IController;
 
 public class LogoutController implements IController{
@@ -15,7 +16,10 @@ public class LogoutController implements IController{
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		HttpSession session = req.getSession();
-		loginService.logout(null);
+		UserVO user = (UserVO) session.getAttribute("USER_INFO");
+		loginService.logout(user);
+		
+		//현재 세션을 전부 무효화 invalidate 
 		session.invalidate();
 		return "redirect:/";
 	}

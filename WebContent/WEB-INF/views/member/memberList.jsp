@@ -1,14 +1,6 @@
-<%@page import="com.study.code.vo.CodeVO"%>
-<%@page import="com.study.code.service.ICommonCodeService"%>
-<%@page import="com.study.code.service.CommonCodeServiceImpl"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.study.member.vo.MemberVO"%>
-<%@page import="com.study.member.service.MemberServiceImpl"%>
-<%@page import="com.study.member.service.IMemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <% request.setCharacterEncoding("utf-8"); %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,26 +10,12 @@
 <body>
  <div class="container">	
 	<h3>회원목록</h3>		
-	<jsp:useBean id="searchVO" class="com.study.member.vo.MemberSearchVO" />
-	<jsp:setProperty property="*" name="searchVO" />
-	<%
-		System.out.print(searchVO);
-		IMemberService memberService = new MemberServiceImpl();
-		List<MemberVO> members = memberService.getMemberList(searchVO);
-		request.setAttribute("members", members);
-		
-		ICommonCodeService codeService = new CommonCodeServiceImpl();
-		List<CodeVO> jbList = codeService.getCodeListByParent("JB00");
-		List<CodeVO> hbList = codeService.getCodeListByParent("HB00");
-		request.setAttribute("jbList", jbList);
-		request.setAttribute("hbList", hbList);
-	%>
 <%@ include file="/WEB-INF/inc/top.jsp" %>
 
 <!-- START : 검색 폼  -->
 		<div class="collapse in panel panel-default" id="id_search_area">
 			<div class="panel-body">
-				<form name="frm_search" action="memberList.jsp" method="post"
+				<form name="frm_search" action="memberList.wow" method="post"
 					class="form-horizontal">
 					<input type="hidden" name="curPage" value="${searchVO.curPage}">
 					<input type="hidden" name="rowSizePerPage"
@@ -127,7 +105,7 @@
 				</span></a>
 			</div>
 			<div>
-		<a href="memberForm.jsp" class="btn btn-primary btn-sm pull-right">회원 등록</a>
+		<a href="memberForm.wow" class="btn btn-primary btn-sm pull-right">회원 등록</a>
 	</div>
 		</div>
 		<!-- END : 목록건수 및 새글쓰기 버튼  -->
@@ -157,7 +135,7 @@
 		<c:forEach items="${members}" var="vo">
 			<tr>
 				<td>${vo.memId}</td> 
-				<td><a href="memberView.jsp?memId=${vo.memId}" >${vo.memName}</a></td>
+				<td><a href="memberView.wow?memId=${vo.memId}" >${vo.memName}</a></td>
 				<td>${vo.memHp}</td>
 				<td>${vo.memBir}</td>
 				<td>${vo.memJobNm}</td>
