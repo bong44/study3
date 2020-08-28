@@ -54,6 +54,7 @@ public class LoginController implements IController{
 				e.printStackTrace();
 				ResultMessageVO message = new ResultMessageVO();
 				message.setResult(false).setTitle("로그인 실패").setMessage("회원이 존재하지 않거나ㅣ 비밀번호가 틀립니다.");
+				req.setAttribute("messageVO", message);
 				return "/WEB-INF/views/common/message.jsp";
 			}
 			

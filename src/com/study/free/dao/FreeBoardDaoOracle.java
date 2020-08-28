@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.study.common.sql.CommonSQL;
 import com.study.exception.DaoException;
 import com.study.free.vo.FreeBoardSearchVO;
 import com.study.free.vo.FreeBoardVO;
@@ -69,10 +70,7 @@ public class FreeBoardDaoOracle implements IFreeBoardDao{
 		List<FreeBoardVO> list = new ArrayList<FreeBoardVO>();
 		
 		try {
-			sb.append("select *                                                   "); 
-		    sb.append("from(select rownum rnum , a.*                              "); 
-		    sb.append("    from(                                                  "); 
-		    
+			sb.append(CommonSQL.START_PAGING_SQL); 
 			sb.append(" SELECT											  ");
 		    sb.append("     bo_no					     				  ");
 		    sb.append("     , bo_title								      ");
@@ -100,9 +98,7 @@ public class FreeBoardDaoOracle implements IFreeBoardDao{
 			}
 			sb.append("  and bo_del_yn = 'N'			               ");
 			sb.append("  order by bo_no 			                  ");
-		    sb.append("    				) a                             "); 
-		    sb.append("    			where rownum <= ?) b                "); 
-		    sb.append("			where rnum between ? and ?              "); 
+		    sb.append(CommonSQL.END_PAGING_SQL); 
 			System.out.println(sb.toString().replaceAll("\\s{2,}", "")); // \s = 공백이 2, = 2개이상인
 			pstmt = conn.prepareStatement(sb.toString());
 			int i = 1;

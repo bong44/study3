@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.study.common.sql.CommonSQL;
 import com.study.exception.DaoDuplicateKeyException;
 import com.study.exception.DaoException;
 import com.study.member.vo.MemberSearchVO;
@@ -254,10 +255,7 @@ public class MemberDaoOracle implements IMemberDao{
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		
 		try {
-			sb.append("  select *                                                   "); 
-		    sb.append("  from(select rownum rnum , a.*                              "); 
-		    sb.append("    from(                                                  "); 
-			
+			sb.append(CommonSQL.START_PAGING_SQL); 
 			sb.append("  SELECT mem_id    , mem_pass    , mem_name     									  ");
 		    sb.append(" , TO_CHAR(mem_bir,'YYYY-MM-DD') AS mem_bir 									      ");
 		    sb.append("   , mem_zip    , mem_add1         										     	  ");
@@ -289,9 +287,7 @@ public class MemberDaoOracle implements IMemberDao{
 				}
 			}
 			sb.append("    				ORDER BY mem_id                             "); 
-		    sb.append("    				) a                             "); 
-		    sb.append("    			where rownum <= ?) b                "); 
-		    sb.append("			where rnum between ? and ?              "); 
+		    sb.append(CommonSQL.END_PAGING_SQL); 
 			System.out.println(sb.toString().replaceAll("\\s{2,}", "")); // \s = 공백이 2, = 2개이상인
 			pstmt = conn.prepareStatement(sb.toString());
 			int i = 1;

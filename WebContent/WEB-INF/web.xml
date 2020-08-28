@@ -46,4 +46,36 @@
     	<error-code>404</error-code>
     	<location>/WEB-INF/err/error404.jsp</location>
     </error-page>
+    
+    <filter>
+    	<filter-name>logging</filter-name>
+    	<filter-class>com.study.filter.LoggingFilter</filter-class>
+    </filter>
+    
+    <filter>
+    	<filter-name>loginCheck</filter-name>
+    	<filter-class>com.study.filter.LoginCheckFilter</filter-class>
+    </filter>
+   
+    <filter>
+    	<filter-name>IpCheck</filter-name>
+    	<filter-class>com.study.filter.IpCheckFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+    	<filter-name>logging</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+    	<filter-name>loginCheck</filter-name>
+    	<url-pattern>/mypage/*</url-pattern>
+    	<url-pattern>/member/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+    	<filter-name>IpCheck</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
 </web-app>

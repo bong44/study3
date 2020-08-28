@@ -56,7 +56,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                      aria-expanded="false"><%=user.getUserName()%>님 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">
+                <li><a href="<%=request.getContextPath() %>/mypage/info.wow">
                 			<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                 			&nbsp;&nbsp;MyPage
                   	</a>
